@@ -3,7 +3,6 @@ version: "2"
 linters:
   enable:
     - errcheck
-    - gosimple
     - govet
     - ineffassign
     - staticcheck
@@ -20,7 +19,6 @@ linters:
       - path: internal/domain/mocks/
         linters:
           - errcheck
-          - gosimple
           - govet
           - ineffassign
           - staticcheck
