@@ -1,3 +1,5 @@
+version: "2"
+
 linters:
   enable:
     - errcheck
@@ -11,10 +13,9 @@ linters:
     - misspell
     - unconvert
     - unparam
-
-linters-settings:
-  goimports:
-    local-prefixes: github.com/kenanabbak/notification-management-api
+  settings:
+    goimports:
+      local-prefixes: github.com/kenanabbak/notification-management-api
 
 issues:
   exclude-rules:
