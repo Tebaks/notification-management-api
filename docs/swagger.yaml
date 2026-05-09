@@ -1,0 +1,316 @@
+basePath: /
+definitions:
+  domain.BatchResult:
+    properties:
+      batch_id:
+        type: string
+      queued:
+        type: integer
+      total:
+        type: integer
+    type: object
+  domain.Channel:
+    enum:
+    - sms
+    - email
+    - push
+    type: string
+    x-enum-varnames:
+    - ChannelSMS
+    - ChannelEmail
+    - ChannelPush
+  domain.CreateBatchInput:
+    properties:
+      notifications:
+        items:
+          $ref: '#/definitions/domain.CreateNotificationInput'
+        maxItems: 1000
+        minItems: 1
+        type: array
+    required:
+    - notifications
+    type: object
+  domain.CreateNotificationInput:
+    properties:
+      channel:
+        allOf:
+        - $ref: '#/definitions/domain.Channel'
+        enum:
+        - sms
+        - email
+        - push
+      content:
+        type: string
+      idempotency_key:
+        type: string
+      priority:
+        allOf:
+        - $ref: '#/definitions/domain.Priority'
+        enum:
+        - high
+        - normal
+        - low
+      recipient:
+        type: string
+      scheduled_at:
+        type: string
+      template_id:
+        type: string
+      variables:
+        additionalProperties:
+          type: string
+        type: object
+    required:
+    - channel
+    - recipient
+    type: object
+  domain.Notification:
+    properties:
+      batch_id:
+        type: string
+      channel:
+        $ref: '#/definitions/domain.Channel'
+      content:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: string
+      idempotency_key:
+        type: string
+      priority:
+        $ref: '#/definitions/domain.Priority'
+      provider_msg_id:
+        type: string
+      recipient:
+        type: string
+      retry_count:
+        type: integer
+      scheduled_at:
+        type: string
+      status:
+        $ref: '#/definitions/domain.Status'
+      updated_at:
+        type: string
+    type: object
+  domain.Priority:
+    enum:
+    - high
+    - normal
+    - low
+    type: string
+    x-enum-varnames:
+    - PriorityHigh
+    - PriorityNormal
+    - PriorityLow
+  domain.Status:
+    enum:
+    - pending
+    - queued
+    - processing
+    - delivered
+    - failed
+    - cancelled
+    type: string
+    x-enum-varnames:
+    - StatusPending
+    - StatusQueued
+    - StatusProcessing
+    - StatusDelivered
+    - StatusFailed
+    - StatusCancelled
+host: localhost:8080
+info:
+  contact: {}
+  description: Scalable multi-channel notification system
+  title: Notification Management API
+  version: "1.0"
+paths:
+  /api/v1/notifications:
+    get:
+      parameters:
+      - description: Filter by status
+        in: query
+        name: status
+        type: string
+      - description: Filter by channel
+        in: query
+        name: channel
+        type: string
+      - description: Filter by batch ID
+        in: query
+        name: batch_id
+        type: string
+      - description: Filter from date (RFC3339)
+        in: query
+        name: date_from
+        type: string
+      - description: Filter to date (RFC3339)
+        in: query
+        name: date_to
+        type: string
+      - description: Page number (default 1)
+        in: query
+        name: page
+        type: integer
+      - description: Page size (default 20, max 100)
+        in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: List notifications with filters and pagination
+      tags:
+      - notifications
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Notification input
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/domain.CreateNotificationInput'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/domain.Notification'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "409":
+          description: Conflict
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create a notification
+      tags:
+      - notifications
+  /api/v1/notifications/{id}:
+    delete:
+      parameters:
+      - description: Notification ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "409":
+          description: Conflict
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Cancel a pending/queued notification
+      tags:
+      - notifications
+    get:
+      parameters:
+      - description: Notification ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Notification'
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get notification by ID
+      tags:
+      - notifications
+  /api/v1/notifications/batch:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Batch input
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/domain.CreateBatchInput'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/domain.BatchResult'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create notifications in batch (up to 1000)
+      tags:
+      - notifications
+  /health:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "503":
+          description: Service Unavailable
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Health check
+      tags:
+      - observability
+  /metrics:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get real-time metrics
+      tags:
+      - observability
+swagger: "2.0"

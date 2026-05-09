@@ -1,0 +1,32 @@
+# Binaries & build artifacts
+bin/
+dist/
+build/
+*.exe
+*.test
+
+# Environment
+*.env
+.env*
+!.env.example
+
+# Test coverage
+coverage.out
+*.cover
+
+# IDE & editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Vendor (if enabled later)
+vendor/
+
+# Claude Code
+.claude/
