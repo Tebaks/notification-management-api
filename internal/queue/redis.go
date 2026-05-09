@@ -4,11 +4,12 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/kenanabbak/notification-management-api/internal/config"
-	"github.com/kenanabbak/notification-management-api/internal/domain"
 	"github.com/redis/go-redis/v9"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/propagation"
+
+	"github.com/kenanabbak/notification-management-api/internal/config"
+	"github.com/kenanabbak/notification-management-api/internal/domain"
 )
 
 const (

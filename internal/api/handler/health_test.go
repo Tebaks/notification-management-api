@@ -10,10 +10,11 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/jmoiron/sqlx"
-	"github.com/kenanabbak/notification-management-api/internal/api/handler"
 	_ "github.com/lib/pq"
 	"github.com/redis/go-redis/v9"
 	"github.com/stretchr/testify/suite"
+
+	"github.com/kenanabbak/notification-management-api/internal/api/handler"
 )
 
 type HealthHandlerSuite struct {

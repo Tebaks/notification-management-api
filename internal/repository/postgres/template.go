@@ -6,6 +6,7 @@ import (
 	"errors"
 
 	"github.com/jmoiron/sqlx"
+
 	"github.com/kenanabbak/notification-management-api/internal/domain"
 )
 

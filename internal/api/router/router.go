@@ -5,10 +5,6 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/kenanabbak/notification-management-api/internal/api/handler"
-	"github.com/kenanabbak/notification-management-api/internal/api/middleware"
-	"github.com/kenanabbak/notification-management-api/internal/config"
-	"github.com/kenanabbak/notification-management-api/internal/telemetry"
 	swaggerfiles "github.com/swaggo/files"
 	ginswagger "github.com/swaggo/gin-swagger"
 	"go.opentelemetry.io/contrib/instrumentation/github.com/gin-gonic/gin/otelgin"
@@ -16,6 +12,10 @@ import (
 	"go.uber.org/zap"
 
 	_ "github.com/kenanabbak/notification-management-api/docs"
+	"github.com/kenanabbak/notification-management-api/internal/api/handler"
+	"github.com/kenanabbak/notification-management-api/internal/api/middleware"
+	"github.com/kenanabbak/notification-management-api/internal/config"
+	"github.com/kenanabbak/notification-management-api/internal/telemetry"
 )
 
 func New(cfg *config.Config, tracerCfg *telemetry.TracerConfig, log *zap.Logger, nh *handler.NotificationHandler, mh *handler.MetricsHandler, hh *handler.HealthHandler, th *handler.TemplateHandler, wh *handler.WSHandler) *gin.Engine {

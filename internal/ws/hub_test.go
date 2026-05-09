@@ -10,10 +10,11 @@ import (
 	"time"
 
 	"github.com/gorilla/websocket"
-	"github.com/kenanabbak/notification-management-api/internal/domain"
-	"github.com/kenanabbak/notification-management-api/internal/ws"
 	"github.com/stretchr/testify/suite"
 	"go.uber.org/fx"
+
+	"github.com/kenanabbak/notification-management-api/internal/domain"
+	"github.com/kenanabbak/notification-management-api/internal/ws"
 )
 
 type HubSuite struct {

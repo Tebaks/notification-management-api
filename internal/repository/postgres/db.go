@@ -2,8 +2,9 @@ package postgres
 
 import (
 	"github.com/jmoiron/sqlx"
-	"github.com/kenanabbak/notification-management-api/internal/config"
 	_ "github.com/lib/pq"
+
+	"github.com/kenanabbak/notification-management-api/internal/config"
 )
 
 func NewDB(cfg *config.Config) (*sqlx.DB, error) {

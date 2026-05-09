@@ -10,10 +10,11 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
+	"github.com/stretchr/testify/suite"
+
 	"github.com/kenanabbak/notification-management-api/internal/api/handler"
 	"github.com/kenanabbak/notification-management-api/internal/domain"
 	"github.com/kenanabbak/notification-management-api/internal/ws"
-	"github.com/stretchr/testify/suite"
 )
 
 type WSHandlerSuite struct {

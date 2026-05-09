@@ -7,8 +7,9 @@ import (
 	migratepg "github.com/golang-migrate/migrate/v4/database/postgres"
 	"github.com/golang-migrate/migrate/v4/source/iofs"
 	"github.com/jmoiron/sqlx"
-	migrations "github.com/kenanabbak/notification-management-api/migrations"
 	"go.uber.org/zap"
+
+	migrations "github.com/kenanabbak/notification-management-api/migrations"
 )
 
 func InvokeMigrations(db *sqlx.DB, log *zap.Logger) error {

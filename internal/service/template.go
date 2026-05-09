@@ -6,8 +6,9 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/kenanabbak/notification-management-api/internal/domain"
 	"go.uber.org/zap"
+
+	"github.com/kenanabbak/notification-management-api/internal/domain"
 )
 
 type templateService struct {

@@ -9,11 +9,12 @@ import (
 	"testing"
 
 	"github.com/gin-gonic/gin"
+	"github.com/stretchr/testify/mock"
+	"github.com/stretchr/testify/suite"
+
 	"github.com/kenanabbak/notification-management-api/internal/api/handler"
 	"github.com/kenanabbak/notification-management-api/internal/domain"
 	"github.com/kenanabbak/notification-management-api/internal/domain/mocks"
-	"github.com/stretchr/testify/mock"
-	"github.com/stretchr/testify/suite"
 )
 
 type TemplateHandlerSuite struct {

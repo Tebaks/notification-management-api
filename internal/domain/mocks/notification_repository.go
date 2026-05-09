@@ -4,8 +4,9 @@ import (
 	"context"
 	"time"
 
-	"github.com/kenanabbak/notification-management-api/internal/domain"
 	"github.com/stretchr/testify/mock"
+
+	"github.com/kenanabbak/notification-management-api/internal/domain"
 )
 
 type NotificationRepository struct {

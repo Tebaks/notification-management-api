@@ -5,8 +5,9 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	appmetrics "github.com/kenanabbak/notification-management-api/internal/metrics"
 	"github.com/redis/go-redis/v9"
+
+	appmetrics "github.com/kenanabbak/notification-management-api/internal/metrics"
 )
 
 type QueueDepthReader interface {

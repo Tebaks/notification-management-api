@@ -3,8 +3,9 @@ package ws
 import (
 	"context"
 
-	"github.com/kenanabbak/notification-management-api/internal/domain"
 	"go.uber.org/fx"
+
+	"github.com/kenanabbak/notification-management-api/internal/domain"
 )
 
 var Module = fx.Module("ws",

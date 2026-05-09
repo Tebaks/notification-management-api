@@ -9,11 +9,12 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/redis/go-redis/v9"
+	"github.com/stretchr/testify/suite"
+
 	"github.com/kenanabbak/notification-management-api/internal/api/handler"
 	"github.com/kenanabbak/notification-management-api/internal/domain"
 	appmetrics "github.com/kenanabbak/notification-management-api/internal/metrics"
-	"github.com/redis/go-redis/v9"
-	"github.com/stretchr/testify/suite"
 )
 
 type mockQueueReader struct{ high, normal, low int64 }

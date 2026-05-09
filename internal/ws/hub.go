@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/gorilla/websocket"
+
 	"github.com/kenanabbak/notification-management-api/internal/domain"
 )
 
@@ -93,11 +94,11 @@ func (h *Hub) ServeWS(w http.ResponseWriter, r *http.Request) {
 }
 
 func (c *client) writePump() {
-	defer c.conn.Close()
+	defer func() { _ = c.conn.Close() }()
 	for {
 		msg, ok := <-c.send
 		if !ok {
-			c.conn.WriteMessage(websocket.CloseMessage, []byte{})
+			_ = c.conn.WriteMessage(websocket.CloseMessage, []byte{})
 			return
 		}
 		if err := c.conn.WriteMessage(websocket.TextMessage, msg); err != nil {
@@ -109,7 +110,7 @@ func (c *client) writePump() {
 func (c *client) readPump() {
 	defer func() {
 		c.hub.unregister <- c
-		c.conn.Close()
+		_ = c.conn.Close()
 	}()
 	c.conn.SetReadLimit(512)
 	for {

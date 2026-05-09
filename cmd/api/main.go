@@ -1,6 +1,8 @@
 package main
 
 import (
+	"go.uber.org/fx"
+
 	"github.com/kenanabbak/notification-management-api/internal/api/router"
 	"github.com/kenanabbak/notification-management-api/internal/config"
 	"github.com/kenanabbak/notification-management-api/internal/metrics"
@@ -9,7 +11,6 @@ import (
 	"github.com/kenanabbak/notification-management-api/internal/service"
 	"github.com/kenanabbak/notification-management-api/internal/telemetry"
 	"github.com/kenanabbak/notification-management-api/internal/ws"
-	"go.uber.org/fx"
 )
 
 //go:generate swag init -g ../../cmd/api/main.go -o ../../docs

@@ -4,8 +4,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/kenanabbak/notification-management-api/internal/domain"
 	"github.com/stretchr/testify/suite"
+
+	"github.com/kenanabbak/notification-management-api/internal/domain"
 )
 
 type ValidationSuite struct {

@@ -4,9 +4,10 @@ import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/suite"
+
 	"github.com/kenanabbak/notification-management-api/internal/domain"
 	"github.com/kenanabbak/notification-management-api/internal/metrics"
-	"github.com/stretchr/testify/suite"
 )
 
 type CollectorSuite struct {

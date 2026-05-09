@@ -7,12 +7,13 @@ import (
 	"testing"
 	"time"
 
-	"github.com/kenanabbak/notification-management-api/internal/domain"
-	"github.com/kenanabbak/notification-management-api/internal/domain/mocks"
-	"github.com/kenanabbak/notification-management-api/internal/service"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/suite"
 	"go.uber.org/zap"
+
+	"github.com/kenanabbak/notification-management-api/internal/domain"
+	"github.com/kenanabbak/notification-management-api/internal/domain/mocks"
+	"github.com/kenanabbak/notification-management-api/internal/service"
 )
 
 type NotificationServiceSuite struct {

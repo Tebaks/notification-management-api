@@ -7,11 +7,12 @@ import (
 	"sync"
 	"time"
 
-	"github.com/kenanabbak/notification-management-api/internal/config"
-	"github.com/kenanabbak/notification-management-api/internal/domain"
 	"github.com/redis/go-redis/v9"
 	"go.uber.org/fx"
 	"go.uber.org/zap"
+
+	"github.com/kenanabbak/notification-management-api/internal/config"
+	"github.com/kenanabbak/notification-management-api/internal/domain"
 )
 
 const schedulerInterval = 10 * time.Second
@@ -108,10 +109,12 @@ func (s *Scheduler) processScheduled(ctx context.Context) {
 func (s *Scheduler) processRetries(ctx context.Context) {
 	now := strconv.FormatInt(time.Now().Unix(), 10)
 
-	results, err := s.rdb.ZRangeByScore(ctx, retryQueue, &redis.ZRangeBy{
-		Min:   "-inf",
-		Max:   now,
-		Count: schedulerBatchSize,
+	results, err := s.rdb.ZRangeArgs(ctx, redis.ZRangeArgs{
+		Key:     retryQueue,
+		Start:   "-inf",
+		Stop:    now,
+		ByScore: true,
+		Count:   schedulerBatchSize,
 	}).Result()
 	if err != nil || len(results) == 0 {
 		return

@@ -11,9 +11,6 @@ import (
 	"sync"
 	"time"
 
-	"github.com/kenanabbak/notification-management-api/internal/config"
-	"github.com/kenanabbak/notification-management-api/internal/domain"
-	"github.com/kenanabbak/notification-management-api/internal/metrics"
 	"github.com/redis/go-redis/v9"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
@@ -23,6 +20,10 @@ import (
 	"go.uber.org/fx"
 	"go.uber.org/zap"
 	"golang.org/x/time/rate"
+
+	"github.com/kenanabbak/notification-management-api/internal/config"
+	"github.com/kenanabbak/notification-management-api/internal/domain"
+	"github.com/kenanabbak/notification-management-api/internal/metrics"
 )
 
 const tracerName = "notification.worker"
@@ -203,7 +204,7 @@ func (w *Worker) deliver(ctx context.Context, n *domain.Notification) (string, e
 		span.RecordError(err)
 		return "", err
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {

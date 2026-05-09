@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/jmoiron/sqlx"
+
 	"github.com/kenanabbak/notification-management-api/internal/domain"
 )
 
@@ -35,7 +36,7 @@ func (r *notificationRepository) CreateBatch(ctx context.Context, notifications 
 	if err != nil {
 		return err
 	}
-	defer tx.Rollback()
+	defer func() { _ = tx.Rollback() }()
 
 	stmt, err := tx.PrepareNamedContext(ctx, `
 		INSERT INTO notifications (id, batch_id, recipient, channel, content, priority, status, idempotency_key, scheduled_at, created_at, updated_at)
@@ -43,7 +44,7 @@ func (r *notificationRepository) CreateBatch(ctx context.Context, notifications 
 	if err != nil {
 		return err
 	}
-	defer stmt.Close()
+	defer func() { _ = stmt.Close() }()
 
 	for _, n := range notifications {
 		if _, err = stmt.ExecContext(ctx, n); err != nil {

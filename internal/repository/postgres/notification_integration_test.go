@@ -8,13 +8,14 @@ import (
 	"time"
 
 	"github.com/jmoiron/sqlx"
-	"github.com/kenanabbak/notification-management-api/internal/domain"
-	"github.com/kenanabbak/notification-management-api/internal/repository/postgres"
 	_ "github.com/lib/pq"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	tcpostgres "github.com/testcontainers/testcontainers-go/modules/postgres"
 	"go.uber.org/zap"
+
+	"github.com/kenanabbak/notification-management-api/internal/domain"
+	"github.com/kenanabbak/notification-management-api/internal/repository/postgres"
 
 	"github.com/google/uuid"
 	tc "github.com/testcontainers/testcontainers-go"

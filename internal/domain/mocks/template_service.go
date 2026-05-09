@@ -3,8 +3,9 @@ package mocks
 import (
 	"context"
 
-	"github.com/kenanabbak/notification-management-api/internal/domain"
 	"github.com/stretchr/testify/mock"
+
+	"github.com/kenanabbak/notification-management-api/internal/domain"
 )
 
 type TemplateService struct {

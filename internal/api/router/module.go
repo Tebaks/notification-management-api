@@ -1,8 +1,9 @@
 package router
 
 import (
-	"github.com/kenanabbak/notification-management-api/internal/api/handler"
 	"go.uber.org/fx"
+
+	"github.com/kenanabbak/notification-management-api/internal/api/handler"
 )
 
 var Module = fx.Module("router",
