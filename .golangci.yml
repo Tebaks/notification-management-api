@@ -8,26 +8,35 @@ linters:
     - ineffassign
     - staticcheck
     - unused
-    - gofmt
-    - goimports
     - misspell
     - unconvert
     - unparam
+  exclusions:
+    rules:
+      - path: _test\.go
+        linters:
+          - errcheck
+          - unparam
+      - path: internal/domain/mocks/
+        linters:
+          - errcheck
+          - gosimple
+          - govet
+          - ineffassign
+          - staticcheck
+          - unused
+          - misspell
+          - unconvert
+          - unparam
+
+formatters:
+  enable:
+    - gofmt
+    - goimports
   settings:
     goimports:
-      local-prefixes: github.com/kenanabbak/notification-management-api
-
-issues:
-  exclude-rules:
-    - path: _test\.go
-      linters:
-        - errcheck
-        - unparam
-    - path: internal/domain/mocks/
-      linters:
-        - all
-  max-issues-per-linter: 0
-  max-same-issues: 0
+      local-prefixes:
+        - github.com/kenanabbak/notification-management-api
 
 run:
   timeout: 5m
