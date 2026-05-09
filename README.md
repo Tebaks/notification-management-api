@@ -388,11 +388,3 @@ All logs are JSON (zap). Key fields:
 curl http://localhost:8080/metrics
 ```
 
-## Security Notes
-
-The API has **no authentication** — it is designed as an internal service sitting behind an API gateway or service mesh. For production exposure:
-
-- Add API key or JWT validation middleware
-- Use TLS termination at the reverse proxy layer
-- Rotate the `WEBHOOK_URL` value; do not commit real provider URLs to version control
-- The worker container runs as a non-root user (UID 1000)
